@@ -6,7 +6,7 @@ from PyQt5.QtGui import QStandardItemModel
 
 class FinanceApp(QMainWindow):
     def __init__(self):
-        super(FinanceApp.self).__init__()
+        super.__init__(self.FinanceApp)
         self.setWindowTitle("InterestMe 2.0")
         self.resize(800, 600)
         
