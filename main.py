@@ -130,7 +130,6 @@ class FinanceApp(QMainWindow):
             
         # Update my chart with the data
         self.figure.clear()
-        plt.style.use('seaborn')
         ax = self.figure.subplots()
         years = list(range(1, num_years + 1))
         totals = [initial_investment * (1 + interest_rate / 100) ** year for year in years]
