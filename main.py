@@ -121,8 +121,10 @@ class FinanceApp(QMainWindow):
         dir_path = QFileDialog.getExistingDirectory(self, "Select Directory")
         
         if dir_path:
+            num = 0
             # Create the "Saved" folder inside the selected directory
-            folder_path = os.path.join(dir_path, "Saved")
+            folder_path = os.path.join(dir_path, "Saved{num}")
+            num += 1
             if not os.path.exists(folder_path):
                 os.mkdir(folder_path)
                 
