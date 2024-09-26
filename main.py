@@ -119,28 +119,34 @@ class FinanceApp(QMainWindow):
     def save_results(self):
         # Open a directory selection dialog
         dir_path = QFileDialog.getExistingDirectory(self, "Select Directory")
-        
+    
         if dir_path:
+            # Initialize folder name with "Saved0"
             num = 0
-            # Create the "Saved" folder inside the selected directory
-            folder_path = os.path.join(dir_path, "Saved{num}")
-            num += 1
-            if not os.path.exists(folder_path):
-                os.mkdir(folder_path)
-                
+            folder_path = os.path.join(dir_path, f"Saved{num}")
+        
+            # Increment the number if the folder already exists
+            while os.path.exists(folder_path):
+                num += 1
+                folder_path = os.path.join(dir_path, f"Saved{num}")
+        
+            # Create the new folder
+            os.mkdir(folder_path)
+        
             # Save the CSV file
             csv_file_path = os.path.join(folder_path, "interest_results.csv")
             with open(csv_file_path, 'w', newline='') as csv_file:
                 writer = csv.writer(csv_file)
                 writer.writerow(["Year", "Total"])  # Header row
-                
+            
                 for year, total in zip(self.years, self.totals):
                     writer.writerow([year, "{:.2f}".format(total)])
-                    
+                
             # Save the graph as a PNG image
             image_file_path = os.path.join(folder_path, "interest_chart.png")
             self.figure.savefig(image_file_path)
-            
+        
+            # Show a confirmation message
             QMessageBox.information(self, "Save", f"Results saved to {folder_path}")
             
 if __name__ == "__main__":
